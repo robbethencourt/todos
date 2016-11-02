@@ -1,8 +1,8 @@
 import webpack from 'webpack'
 import path from 'path'
-import htmlWebpackPlugin from 'html-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-const HtmlWebpackPluginConfig = new htmlWebpackPlugin({
+const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: __dirname + '/app/index.html',
   filename: 'index.html',
   inject: 'body'

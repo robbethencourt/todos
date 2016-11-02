@@ -1,29 +1,24 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { Navigation } from 'components'
 
 const MainContainer = React.createClass({
   propTypes: {
-    // list your PropTypes
+    isAuthed: PropTypes.bool.isRequired,
+    children: React.PropTypes.element.isRequired
   },
   render () {
     return (
-      <div>Hello World</div>
+      <div>
+        <Navigation isAuthed={this.props.isAuthed} />
+        <div>
+          {this.props.children}
+        </div>
+      </div>
     )
   }
 })
 
-function mapStateToProps () {
-  return {
-    
-  }
-}
-
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators(dispatch)
-}
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  ({users}) => ({isAuthed: users.get('isAuthed')})
 )(MainContainer)
