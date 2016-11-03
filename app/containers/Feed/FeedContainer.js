@@ -7,6 +7,9 @@ const FeedConatiner = React.createClass({
   propTypes: {
 
   },
+  handleClick (e) {
+    e.preventDefault()
+  },
   render () {
     return (
       <Feed />
