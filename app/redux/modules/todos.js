@@ -1,56 +1,38 @@
-import { Map, fromJS } from 'immutable'
+import { Map } from 'immutable'
 
-const FETCHING_TODOS = 'FETCHING_TODOS'
-const FETCHING_TODOS_SUCCESS = 'FETCHING_TODOS_SUCCESS'
-const FETCHING_TODOS_ERROR = 'FETCHING_TODOS_ERROR'
 const ADD_TODO = 'ADD_TODO'
-const MARK_COMPLETE = 'MARK_COMPLETE'
+const UPDATE_TODO_TEXT = 'UPDATE_TODO_TEXT'
 
-// mark isFetching to true in reducer
-function fetchingTodos () {
-  return {
-    type: FETCHING_TODOS
-  }
-}
-
-function fetchingTodosSuccess () {
-  return {
-    type: FETCHING_TODOS_SUCCESS
-  }
-}
-
-function fetchingTodosError () {
-  return {
-    type: FETCHING_TODOS_ERROR
-  }
-}
-
-function addTodo (content) {
+export function addTodo (todo) {
   return {
     type: ADD_TODO,
-    content
+    todo
   }
 }
 
-function markComplete (todo) {
+export function updateTodoText (text) {
   return {
-    type: MARK_COMPLETE,
-    complete: true
+    type: UPDATE_TODO_TEXT,
+    text
   }
 }
 
 const initialState = Map({
-  isFetching: true
+  error: '',
+  todoContentToAdd: ''
 })
 
 export default function todos (state = initialState, action) {
   switch (action.type) {
     case ADD_TODO:
       return state.merge({
-
+        [action.todo.todoId]: action.todo
       })
-
+    case UPDATE_TODO_TEXT:
+      return state.merge({
+        todoContentToAdd: action.text
+      })
     default:
-      state
+      return state
   }
 }
