@@ -1,8 +1,13 @@
 export function formatTodo (todoText, uid) {
   const timestamp = Date.now()
   return {
-    content: todoText,
-    uid,
-    timestamp
+    todo: {
+      [timestamp]: {
+        content: todoText,
+        uid,
+        timestamp
+      }
+    },
+    todoId: timestamp
   }
 }

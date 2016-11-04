@@ -6,10 +6,10 @@ AddTodo.propTypes = {
   todoContentToAdd: PropTypes.string.isRequired
 }
 
-export default function AddTodo (props) {
+export default function AddTodo ({updateTodoText, handleClick, todoContentToAdd}) {
   return (
     <div>
-      <input type='text' value={props.todoContentToAdd} onChange={(e) => props.updateTodoText(e.target.value)} /><button onClick={(e) => props.handleClick(e)}>Add</button>
+      <input type='text' value={todoContentToAdd} onChange={(e) => updateTodoText(e.target.value)} /><button onClick={(e) => handleClick(e)}>Add</button>
     </div>
   )
 }

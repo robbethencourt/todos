@@ -1,4 +1,4 @@
-import { Map } from 'immutable'
+import { fromJS } from 'immutable'
 
 const ADD_TODO = 'ADD_TODO'
 const UPDATE_TODO_TEXT = 'UPDATE_TODO_TEXT'
@@ -24,16 +24,19 @@ export function removeTodoContentToAdd () {
   }
 }
 
-const initialState = Map({
+const initialState = fromJS({
   error: '',
-  todoContentToAdd: ''
+  todoContentToAdd: '',
+  todosArray: {},
+  todoIds: []
 })
 
 export default function todos (state = initialState, action) {
   switch (action.type) {
     case ADD_TODO:
       return state.merge({
-        [action.todo.timestamp]: action.todo
+        todosArray: state.get('todosArray').merge(action.todo.todo),
+        todoIds: state.get('todoIds').unshift(action.todo.todoId)
       })
     case UPDATE_TODO_TEXT:
       return state.merge({
