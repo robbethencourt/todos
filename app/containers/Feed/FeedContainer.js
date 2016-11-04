@@ -1,20 +1,27 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { Feed } from 'components'
+import { List } from 'immutable'
 
 const FeedConatiner = React.createClass({
   propTypes: {
-
+    todosArray: PropTypes.instanceOf(List)
   },
   handleClick (e) {
     e.preventDefault()
   },
   render () {
     return (
-      <Feed />
+      <Feed
+        todosArray={this.props.todosArray} />
     )
   }
 })
 
-export default connect()(FeedConatiner)
+function mapStateToProps ({todos}, props) {
+  return {
+    todosArray: todos.get('todoIds')
+  }
+}
+
+export default connect(mapStateToProps)(FeedConatiner)
