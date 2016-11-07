@@ -5,7 +5,8 @@ export function formatTodo (todoText, uid) {
       [timestamp]: {
         content: todoText,
         uid,
-        timestamp
+        timestamp,
+        Complete: false
       }
     },
     todoId: timestamp

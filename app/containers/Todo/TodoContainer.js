@@ -12,7 +12,7 @@ const TodoContainer = React.createClass({
   handleClick (e) {
     e.preventDefault()
 
-    console.log(e.target.value)
+    console.log(e.target.id)
     const todoId = e.target.id
     // this.props.handleAddRemoveComplete(todoId)
   },

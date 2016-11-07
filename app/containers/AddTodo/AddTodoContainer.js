@@ -3,24 +3,28 @@ import { connect } from 'react-redux'
 import { AddTodo } from 'components'
 import { bindActionCreators } from 'redux'
 import * as todosActionCreators from 'redux/modules/todos'
+import * as openTodosActionCreators from 'redux/modules/openTodos'
 import { formatTodo } from 'helpers/utils'
 
 const AddTodoContainer = React.createClass({
   propTypes: {
     updateTodoText: PropTypes.func.isRequired,
-    addTodo: PropTypes.func.isRequired,
+    handleAddTodo: PropTypes.func.isRequired,
     uid: PropTypes.string.isRequired,
     removeTodoContentToAdd: PropTypes.func.isRequired,
-    todoContentToAdd: PropTypes.string.isRequired
+    todoContentToAdd: PropTypes.string.isRequired,
+    handleAddRemoveOpen: PropTypes.func.isRequired
   },
   handleClick (e) {
     e.preventDefault()
-    console.log(this.props.uid)
 
+    const actionToOpen = 'ADD_TO_OPEN'
     const todoText = e.target.parentElement.children[0].value
-    this.props.addTodo(formatTodo(todoText, this.props.uid))
-    this.props.removeTodoContentToAdd()
 
+    Promise.all([this.props.handleAddTodo(formatTodo(todoText, this.props.uid))])
+      .then(x => this.props.handleAddRemoveOpen(actionToOpen, x[0]))
+
+    this.props.removeTodoContentToAdd()
     // need to clear the input as well
   },
   render () {
@@ -41,7 +45,7 @@ function mapStateToProps ({todos, users}, props) {
 }
 
 function mapDispatchToProps (dispatch, props) {
-  return bindActionCreators(todosActionCreators, dispatch)
+  return bindActionCreators({...todosActionCreators, ...openTodosActionCreators}, dispatch)
 }
 
 export default connect(

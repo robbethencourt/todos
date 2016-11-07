@@ -4,7 +4,7 @@ const ADD_TODO = 'ADD_TODO'
 const UPDATE_TODO_TEXT = 'UPDATE_TODO_TEXT'
 const REMOVE_TODO_CONTENT_TO_ADD = 'REMOVE_TODO_CONTENT_TO_ADD'
 
-export function addTodo (todo) {
+function addTodo (todo) {
   return {
     type: ADD_TODO,
     todo
@@ -21,6 +21,13 @@ export function updateTodoText (text) {
 export function removeTodoContentToAdd () {
   return {
     type: REMOVE_TODO_CONTENT_TO_ADD
+  }
+}
+
+export function handleAddTodo (todo) {
+  return function (dispatch) {
+    dispatch(addTodo(todo))
+    return todo.todoId
   }
 }
 

@@ -19,7 +19,7 @@
 /completeTodos
   todos - Array
 
-/uncompleteTodos
+/openTodos
   todos - Array
 
 /feed

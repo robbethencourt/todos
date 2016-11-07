@@ -7,6 +7,6 @@ Todo.propTypes = {
 
 export default function Todo ({ todoToPass, handleClick }) {
   return (
-    <li>{todoToPass.get('content')} <button id={todoToPass.get('timestamp')} onClick={handleClick}>Delete</button></li>
+    <li>{todoToPass.get('content')} <button id={todoToPass.get('timestamp')} onClick={handleClick}>Mark Complete</button></li>
   )
 }
