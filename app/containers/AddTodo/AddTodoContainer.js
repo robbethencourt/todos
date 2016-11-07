@@ -18,14 +18,13 @@ const AddTodoContainer = React.createClass({
   handleClick (e) {
     e.preventDefault()
 
-    const actionToOpen = 'ADD_TO_OPEN'
+    const isTodoComplete = 'complete'
     const todoText = e.target.parentElement.children[0].value
 
     Promise.all([this.props.handleAddTodo(formatTodo(todoText, this.props.uid))])
-      .then(x => this.props.handleAddRemoveOpen(actionToOpen, x[0]))
+      .then(x => this.props.handleAddRemoveOpen(isTodoComplete, x[0]))
 
     this.props.removeTodoContentToAdd()
-    // need to clear the input as well
   },
   render () {
     return (

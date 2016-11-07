@@ -17,13 +17,12 @@ function removeFromOpen (todoId) {
   }
 }
 
-export function handleAddRemoveOpen (actionToOpen, todoId) {
+export function handleAddRemoveOpen (isTodoComplete, todoId) {
   return function (dispatch) {
-    if (actionToOpen === 'ADD_TO_OPEN') {
+    if (isTodoComplete === 'complete') {
       dispatch(addToOpen(todoId))
     } else {
-      // removeFromOpen(todoId)
-      console.log('something else')
+      dispatch(removeFromOpen(todoId))
     }
   }
 }
@@ -37,6 +36,10 @@ export default function openTodos (state = initialState, action) {
     case ADD_TO_OPEN:
       return state.merge({
         todoIds: state.get('todoIds').unshift(action.todoId)
+      })
+    case REMOVE_FROM_OPEN:
+      return state.merge({
+        todoIds: state.get('todoIds').shift(action.todoId)
       })
     default:
       return state
