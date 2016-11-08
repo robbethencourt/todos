@@ -4,23 +4,27 @@ import { List } from 'immutable'
 import { TodoContainer } from 'containers'
 
 Feed.propTypes = {
-  todosArray: PropTypes.instanceOf(List),
-  handleClick: PropTypes.func.isRequired
+  handleClick: PropTypes.func.isRequired,
+  feed: PropTypes.string.isRequired,
+  completeTodos: PropTypes.instanceOf(List),
+  openTodos: PropTypes.instanceOf(List)
 }
 
-export default function Feed ({todosArray, handleClick, feed}) {
+export default function Feed ({handleClick, feed, completeTodos, openTodos}) {
   return (
     <div>
       <h1>Todos</h1>
-      <button onClick={handleClick} id={feed}>Display needToToggleThis Todos</button>
+      <button onClick={handleClick} id={feed}>Display {feed === 'open' ? 'Completed' : 'Open'} Todos</button>
       <AddTodoContainer />
-      {todosArray.size === 0
-        ? <p>Wow! You have got no todos</p>
-        : null }
+      <h3>Below are your {feed === 'open' ? 'open' : 'completed'} todos</h3>
       <ul>
-        {todosArray.map((item, i) => (
+        {feed === 'open'
+          ? openTodos.map((item) => (
           <TodoContainer todo={item} key={item} />
-        ))}
+          ))
+          : completeTodos.map((item) => (
+            <TodoContainer todo={item} key={item} />
+          ))}
       </ul>
     </div>
   )

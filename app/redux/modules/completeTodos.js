@@ -19,7 +19,7 @@ function removeFromComplete (todoId) {
 
 export function handleAddRemoveComplete (isTodoComplete, todoId) {
   return function (dispatch) {
-    if (isTodoComplete === 'ADD_TO_COMPLETE' || 'open') {
+    if (isTodoComplete === 'open') {
       dispatch(addToComplete(todoId))
     } else {
       dispatch(removeFromComplete(todoId))
@@ -39,7 +39,7 @@ export default function completeTodos (state = initialState, action) {
       })
     case REMOVE_FROM_COMPLETE:
       return state.merge({
-        todoIds: state.get('todoIds').shift(action.todoId)
+        todoIds: state.get('todoIds').filter(x => x !== action.todoId)
       })
     default:
       return state

@@ -7,7 +7,6 @@ import * as feedActionCreators from 'redux/modules/feed'
 
 const FeedConatiner = React.createClass({
   propTypes: {
-    todosArray: PropTypes.instanceOf(List),
     completeTodos: PropTypes.instanceOf(List),
     openTodos: PropTypes.instanceOf(List),
     feed: PropTypes.string.isRequired,
@@ -16,23 +15,22 @@ const FeedConatiner = React.createClass({
   handleClick (e) {
     e.preventDefault()
 
-    console.log(e.target.id)
     let currentlyDisplaying = e.target.id
     this.props.handleDisplay(currentlyDisplaying)
   },
   render () {
     return (
       <Feed
-        todosArray={this.props.todosArray}
+        openTodos={this.props.openTodos}
+        completeTodos={this.props.completeTodos}
         handleClick={this.handleClick}
         feed={this.props.feed} />
     )
   }
 })
 
-function mapStateToProps ({todos, completeTodos, openTodos, feed}, props) {
+function mapStateToProps ({completeTodos, openTodos, feed}, props) {
   return {
-    todosArray: todos.get('todoIds'),
     completeTodos: completeTodos.get('todoIds'),
     openTodos: openTodos.get('todoIds'),
     feed: feed.displaying
