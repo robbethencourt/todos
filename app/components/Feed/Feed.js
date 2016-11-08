@@ -4,14 +4,15 @@ import { List } from 'immutable'
 import { TodoContainer } from 'containers'
 
 Feed.propTypes = {
-  todosArray: PropTypes.instanceOf(List)
+  todosArray: PropTypes.instanceOf(List),
+  handleClick: PropTypes.func.isRequired
 }
 
-export default function Feed ({todosArray}) {
+export default function Feed ({todosArray, handleClick, feed}) {
   return (
     <div>
       <h1>Todos</h1>
-      <button>Display needToToggleThis Todos</button>
+      <button onClick={handleClick} id={feed}>Display needToToggleThis Todos</button>
       <AddTodoContainer />
       {todosArray.size === 0
         ? <p>Wow! You have got no todos</p>
@@ -20,7 +21,6 @@ export default function Feed ({todosArray}) {
         {todosArray.map((item, i) => (
           <TodoContainer todo={item} key={item} />
         ))}
-        <li>Need to map over the todos</li>
       </ul>
     </div>
   )

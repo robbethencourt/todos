@@ -11,14 +11,19 @@ function addToComplete (todoId) {
 }
 
 function removeFromComplete (todoId) {
-
+  return {
+    type: REMOVE_FROM_COMPLETE,
+    todoId
+  }
 }
 
-export function handleAddRemoveComplete (actionToComplete, todoId) {
-  if (actionToComplete === ADD_TO_COMPLETE) {
-    addToComplete(todoId)
-  } else {
-    removeFromComplete(todoId)
+export function handleAddRemoveComplete (isTodoComplete, todoId) {
+  return function (dispatch) {
+    if (isTodoComplete === 'ADD_TO_COMPLETE' || 'open') {
+      dispatch(addToComplete(todoId))
+    } else {
+      dispatch(removeFromComplete(todoId))
+    }
   }
 }
 
@@ -30,11 +35,11 @@ export default function completeTodos (state = initialState, action) {
   switch (action.type) {
     case ADD_TO_COMPLETE:
       return state.merge({
-        todoIds: state.get('todoIds').unshift(action.todo.todoId)
+        todoIds: state.get('todoIds').unshift(action.todoId)
       })
     case REMOVE_FROM_COMPLETE:
       return state.merge({
-        todoIds: 'need some help here'
+        todoIds: state.get('todoIds').shift(action.todoId)
       })
     default:
       return state

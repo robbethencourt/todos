@@ -3,18 +3,25 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Todo } from 'components'
 import * as completeTodosActionCreators from 'redux/modules/completeTodos'
+import * as openTodosActionCreators from 'redux/modules/openTodos'
+import * as todosActionCreators from 'redux/modules/todos'
 
 const TodoContainer = React.createClass({
   propTypes: {
     todoToPass: PropTypes.object.isRequired,
-    handleAddRemoveComplete: PropTypes.func.isRequired
+    handleAddRemoveComplete: PropTypes.func.isRequired,
+    handleAddRemoveOpen: PropTypes.func.isRequired,
+    handleTodoOpenComplete: PropTypes.func.isRequired
   },
   handleClick (e) {
     e.preventDefault()
 
-    console.log(e.target.value)
-    const todoId = e.target.id
-    // this.props.handleAddRemoveComplete(todoId)
+    const isTodoComplete = e.target.parentNode.id
+    const todoId = parseInt(e.target.id, 10)
+
+    this.props.handleAddRemoveComplete(isTodoComplete, todoId)
+    this.props.handleAddRemoveOpen(isTodoComplete, todoId)
+    this.props.handleTodoOpenComplete(isTodoComplete, todoId)
   },
   render () {
     return (
@@ -32,7 +39,10 @@ function mapStateToProps ({ todos, completeTodos }, props) {
 }
 
 function mapDispatchToProps (dispatch, props) {
-  return bindActionCreators(completeTodosActionCreators, props)
+  return bindActionCreators({
+    ...openTodosActionCreators,
+    ...completeTodosActionCreators,
+    ...todosActionCreators}, dispatch)
 }
 
 export default connect(
