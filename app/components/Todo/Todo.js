@@ -8,6 +8,6 @@ Todo.propTypes = {
 export default function Todo ({ todoToPass, handleClick }) {
   const isOpen = todoToPass.get('complete') ? 'complete' : 'open'
   return (
-    <li id={isOpen}>{todoToPass.get('content')} <button id={todoToPass.get('timestamp')} onClick={handleClick}>Mark Complete</button></li>
+    <li id={isOpen}>{todoToPass.get('content')} <button id={todoToPass.get('timestamp')} onClick={handleClick}>{isOpen === 'open' ? 'Mark Complete' : 'Mark Open'}</button></li>
   )
 }
