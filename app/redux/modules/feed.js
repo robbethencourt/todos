@@ -16,10 +16,8 @@ function displayComplete () {
 export function handleDisplay (currentlyDisplaying) {
   return function (dispatch) {
     if (currentlyDisplaying === 'open') {
-      console.log('it is open')
       dispatch(displayComplete())
     } else {
-      console.log('it is closed')
       dispatch(displayOpen())
     }
   }

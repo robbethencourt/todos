@@ -39,7 +39,7 @@ export default function openTodos (state = initialState, action) {
       })
     case REMOVE_FROM_OPEN:
       return state.merge({
-        todoIds: state.get('todoIds').shift(action.todoId)
+        todoIds: state.get('todoIds').filter(x => x !== action.todoId)
       })
     default:
       return state
